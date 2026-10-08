@@ -776,8 +776,6 @@ The predictions should not be used as the sole basis for real-world lending deci
 
 # 👤 Author
 
-**Amandip De**
-
-High Energy Physics Researcher transitioning ML/AI expertise into applied machine learning and end-to-end ML engineering.
+**Dr. Amandip De**
 
 🔗 GitHub: [Credit Risk Prediction — GitHub Repository](https://github.com/amandipde/Credit-Risk-Prediction/tree/main?utm_source=chatgpt.com)
