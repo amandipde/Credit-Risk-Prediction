@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Risk | Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="ambient one"></div><div class="ambient two"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark"><span></span><span></span><span></span></div>
+    <div><strong>Credit Risk</strong><small>Decision workspace</small></div>
+  </div>
+  <div class="api-status"><i></i> Model API online</div>
+</header>
+
+<main>
+<section class="intro">
+  <div class="eyebrow">RISK ASSESSMENT <b></b> XGBOOST</div>
+  <h1>Assess a loan application<br><em>in seconds.</em></h1>
+  <p>Enter the applicant and loan details below. The deployed model returns a default probability and applies your configured decision threshold.</p>
+  <div class="metrics">
+    <div><strong>Probability</strong><span>Model score</span></div>
+    <div><strong>Threshold</strong><span>Decision boundary</span></div>
+    <div><strong>Output</strong><span>Risk classification</span></div>
+  </div>
+</section>
+
+<section class="workspace">
+<form id="risk-form" class="card form-card">
+  <div class="heading">
+    <div><label>01 / APPLICANT</label><h2>Applicant profile</h2></div>
+    <button type="button" id="example-btn" class="ghost">Load example</button>
+  </div>
+
+  <div class="grid">
+    <label>Age<input name="person_age" type="number" min="18" value="30" required></label>
+    <label>Annual income<div class="wrap"><b>₹</b><input name="person_income" type="number" min="0" value="60000" required></div></label>
+    <label>Home ownership<select name="person_home_ownership"><option>RENT</option><option selected>OWN</option><option>MORTGAGE</option><option>OTHER</option></select></label>
+    <label>Employment length<div class="wrap suffix"><input name="person_emp_length" type="number" min="0" step=".1" value="8" required><b>yrs</b></div></label>
+  </div>
+
+  <div class="heading second"><div><label>02 / LOAN</label><h2>Loan details</h2></div></div>
+
+  <div class="grid">
+    <label>Loan intent<select name="loan_intent"><option selected>EDUCATION</option><option>PERSONAL</option><option>MEDICAL</option><option>DEBTCONSOLIDATION</option><option>HOMEIMPROVEMENT</option><option>VENTURE</option></select></label>
+    <label>Loan grade<select name="loan_grade"><option selected>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select></label>
+    <label>Loan amount<div class="wrap"><b>₹</b><input name="loan_amnt" type="number" min="0" value="5000" required></div></label>
+    <label>Interest rate<div class="wrap suffix"><input name="loan_int_rate" type="number" min="0" step=".01" value="7.5" required><b>%</b></div></label>
+    <label>Loan / income ratio<input name="loan_percent_income" type="number" min="0" max="1" step=".001" value=".08" required></label>
+    <label>Prior default<select name="cb_person_default_on_file"><option selected>N</option><option>Y</option></select></label>
+    <label>Credit history<div class="wrap suffix"><input name="cb_person_cred_hist_length" type="number" min="0" value="10" required><b>yrs</b></div></label>
+  </div>
+
+  <button id="submit-btn" class="primary" type="submit">
+    <span>Assess application</span><i></i><b>→</b>
+  </button>
+  <p class="note">Model output for demonstration — not a lending decision.</p>
+</form>
+
+<aside class="card result-card">
+  <div class="result-top"><label>03 / ASSESSMENT</label><small id="result-time">Awaiting input</small></div>
+
+  <div id="idle" class="state">
+    <div class="pulse"><i></i></div>
+    <h3>Ready for assessment</h3>
+    <p>Submit an application to generate a model-based risk assessment.</p>
+  </div>
+
+  <div id="loading" class="state hidden">
+    <div class="loader"><i></i><i></i><i></i><i></i><i></i></div>
+    <h3>Evaluating application</h3>
+    <p>Running the applicant through the deployed model.</p>
+  </div>
+
+  <div id="output" class="output hidden">
+    <div class="risk-head">
+      <div><label>MODEL DECISION</label><h3 id="risk-label">Low Risk</h3></div>
+      <b id="risk-badge">LOW</b>
+    </div>
+
+    <div class="probability"><span>Estimated default probability</span><strong id="probability">0.0%</strong></div>
+
+    <div class="meter">
+      <div id="meter-fill"></div>
+      <i id="threshold-marker"><span>threshold</span></i>
+    </div>
+    <div class="meter-labels"><span>0%</span><span id="threshold-text">Threshold</span><span>100%</span></div>
+
+    <div class="decision">
+      <b id="decision-icon">✓</b>
+      <div><label>INTERPRETATION</label><p id="decision-text"></p></div>
+    </div>
+
+    <button type="button" id="reset-btn" class="secondary">Assess another application</button>
+  </div>
+
+  <div id="error" class="state hidden">
+    <div class="error-icon">!</div>
+    <h3>Assessment unavailable</h3>
+    <p id="error-text"></p>
+    <button type="button" id="retry-btn" class="secondary">Try again</button>
+  </div>
+</aside>
+</section>
+
+<footer><span>Credit Risk Prediction</span><span>FastAPI · XGBoost · Render</span></footer>
+</main>
+<script src="/static/script.js"></script>
+</body>
+</html>
