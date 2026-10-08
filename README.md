@@ -484,8 +484,6 @@ fetch("/predict/", {
     ...
 })
 ```
-<img width="1224" height="834" alt="Screenshot from 2026-10-08 15-41-18" src="https://github.com/user-attachments/assets/47ce69bc-9b0d-4c7a-af2c-2b4e206bd0eb" />
-
 and dynamically displays:
 
 - Risk classification
@@ -495,6 +493,8 @@ and dynamically displays:
 - Model decision
 
 The interface also includes an example application for quickly demonstrating the system.
+
+<img width="1224" height="834" alt="Screenshot from 2026-10-08 15-41-18" src="https://github.com/user-attachments/assets/47ce69bc-9b0d-4c7a-af2c-2b4e206bd0eb" />
 
 ---
 
