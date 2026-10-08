@@ -1,47 +1,36 @@
-# Credit Risk Prediction UI
+# Credit Risk Prediction — Render package
 
-`main.py` is NOT included or modified in this package.
+Repository structure:
 
-Put these files alongside your existing `main.py`:
+    main.py
+    credit_risk_model.pkl
+    best_threshold.pkl
+    requirements.txt
+    render.yaml
+    static/
+        index.html
+        style.css
+        script.js
 
-```text
-your-project/
-├── main.py
-├── credit_risk_model.pkl
-├── best_threshold.pkl
-├── requirements.txt
-├── render.yaml
-└── static/
-    ├── index.html
-    ├── style.css
-    └── script.js
-```
+Your current FastAPI app mounts `static` at `/`:
 
-## Local
+    app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
-```bash
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
+Therefore the HTML must load assets as `/style.css` and `/script.js`, not `/static/style.css` and `/static/script.js`.
 
-Because the existing `main.py` serves `/` as `{"message": "Hello, World!"}`, open the UI at:
+The supplied frontend already uses the correct paths.
 
-http://127.0.0.1:8000/static/index.html
+Render:
+Build command:
+    pip install -r requirements.txt
 
-The API docs remain at:
+Start command:
+    uvicorn main:app --host 0.0.0.0 --port $PORT
 
-http://127.0.0.1:8000/docs
+After deployment, test:
+    https://YOUR-APP.onrender.com/
+    https://YOUR-APP.onrender.com/style.css
+    https://YOUR-APP.onrender.com/script.js
 
-The frontend calls `/predict/`, so it uses the same API origin.
-
-## Render
-
-The included `render.yaml` uses:
-
-```bash
-uvicorn main:app --host 0.0.0.0 --port $PORT
-```
-
-Keep your existing `main.py`, `credit_risk_model.pkl`, and `best_threshold.pkl` in the repository root.
-
-For model pickle compatibility, pin the exact scikit-learn and xgboost versions used to train the model.
+The two model files are not included in this package. Keep your existing
+`credit_risk_model.pkl` and `best_threshold.pkl` in the repository root.
